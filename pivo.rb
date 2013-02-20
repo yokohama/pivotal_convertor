@@ -4,6 +4,8 @@
 require "csv"
 require "erb"
 
+protected_headers = [:id, :story, :url, :dead_line, :story_type, :estimate]
+
 module PivotalTracker
 
   class Ticket
@@ -69,7 +71,7 @@ reader.each do |r|
 
   task_statuses = []
   r.each_with_index do |attr, i|
-    next if except_headers.include? header[i]
+    next if (except_headers.include?(header[i]) && !protected_headers.include?(header[i].to_sym))
     if header[i] == 'comment'
       comment = PivotalTracker::Comment.new
       comment.title = attr
@@ -107,7 +109,9 @@ end
 header.uniq!.delete('task_status')
 header[-1,0] = 'task_progres_rate'
 except_headers.each do |h|
-  header.delete h
+  unless protected_headers.include? h.to_sym
+    header.delete h
+  end
 end
 
 PivotalTracker::Html.print header, records
@@ -166,9 +170,9 @@ __END__
       <thead>
         <tr>
           <% header.each_with_index do |h, i| %>
+            <% next if (h == 'url' || h == 'story_type' || h == 'estimate') %>
             <% if i == 0 %>
               <th colspan="2"><%= h %></th>
-            <% elsif h == 'url' %>
             <% else %>
               <th><%= h %></th>
             <% end %>
@@ -183,12 +187,15 @@ __END__
             <% else %>
               <td>&nbsp;&nbsp;</td>
               <% header.each do |h| %>
-                <% next if h == 'url' %>
+                <% next if (h == 'url' || h == 'story_type' || h == 'estimate') %>
                 <td>
                   <% if (h == "comment") %>
                     <% r.comment.each do |c| %>
                       <%= "<div class='comment'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
                     <% end %>
+                  <% elsif (h == 'id') %>
+                    <div><%= r.id %></div>
+                    <div><%= r.story_type %></div>
                   <% elsif (h == 'task') %>
                     <% r.task.each do |c| %>
                       <% if c.status == 'completed' %>
@@ -198,7 +205,7 @@ __END__
                       <% end %>
                     <% end %>
                   <% elsif (h == 'story') %>
-                    <a href='<%= r.url %>' target="_brank"><%= r.story %></a>
+                    <a href='<%= r.url %>' target="_brank"><%= r.story %></a> (<%= r.estimate %>)
                   <% else %>
                     <%= PivotalTracker::Print.escape(r.send("#{h}") || '') %>
                   <% end %>
