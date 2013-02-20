@@ -4,7 +4,7 @@
 require "csv"
 require "erb"
 
-protected_headers = [:id, :story, :url, :dead_line, :story_type, :estimate]
+protected_headers = [:id, :story, :url, :dead_line, :story_type, :estimate, :owned_by]
 
 module PivotalTracker
 
@@ -170,7 +170,7 @@ __END__
       <thead>
         <tr>
           <% header.each_with_index do |h, i| %>
-            <% next if (h == 'url' || h == 'story_type' || h == 'estimate') %>
+            <% next if (h == 'url' || h == 'story_type' || h == 'estimate' || h == 'owned_by') %>
             <% if i == 0 %>
               <th colspan="2"><%= h %></th>
             <% else %>
@@ -187,7 +187,7 @@ __END__
             <% else %>
               <td>&nbsp;&nbsp;</td>
               <% header.each do |h| %>
-                <% next if (h == 'url' || h == 'story_type' || h == 'estimate') %>
+                <% next if (h == 'url' || h == 'story_type' || h == 'estimate' || h == 'owned_by') %>
                 <td>
                   <% if (h == "comment") %>
                     <% r.comment.each do |c| %>
@@ -196,6 +196,9 @@ __END__
                   <% elsif (h == 'id') %>
                     <div><%= r.id %></div>
                     <div><%= r.story_type %></div>
+                  <% elsif (h == 'current_state') %>
+                    <div><%= r.current_state %></div>
+                    <div>(<%= r.owned_by %>)</div>
                   <% elsif (h == 'task') %>
                     <% r.task.each do |c| %>
                       <% if c.status == 'completed' %>
