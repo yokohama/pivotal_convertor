@@ -165,32 +165,45 @@ __END__
     <table>
       <thead>
         <tr>
-          <% header.each do |h| %>
-            <th><%= h %></th>
+          <% header.each_with_index do |h, i| %>
+            <% if i == 0 %>
+              <th colspan="2"><%= h %></th>
+            <% elsif h == 'url' %>
+            <% else %>
+              <th><%= h %></th>
+            <% end %>
           <% end %>
         </tr>
       </thead>
       <tbody>
         <% records.each_with_index do |r, i| %>
           <%= r.done ? '<tr class="done">' : '<tr>' %>
-            <% header.each do |h| %>
-              <td>
-                <% if (h == "comment") %>
-                  <% r.comment.each do |c| %>
-                    <%= "<div class='comment'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
-                  <% end %>
-                <% elsif (h == 'task') %>
-                  <% r.task.each do |c| %>
-                    <% if c.status == 'completed' %>
-                      <%= "<div class='task-completed'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
-                    <% else %>
-                      <%= "<div class='task'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+            <% if r.story_type == 'release' %>
+               <td colspan="<%= header.size + 1 %>"><strong><a href="<%= r.url %>" target="_brank"><%= r.story %></a></strong></td>
+            <% else %>
+              <td>&nbsp;&nbsp;</td>
+              <% header.each do |h| %>
+                <% next if h == 'url' %>
+                <td>
+                  <% if (h == "comment") %>
+                    <% r.comment.each do |c| %>
+                      <%= "<div class='comment'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
                     <% end %>
+                  <% elsif (h == 'task') %>
+                    <% r.task.each do |c| %>
+                      <% if c.status == 'completed' %>
+                        <%= "<div class='task-completed'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+                      <% else %>
+                        <%= "<div class='task'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+                      <% end %>
+                    <% end %>
+                  <% elsif (h == 'story') %>
+                    <a href='<%= r.url %>' target="_brank"><%= r.story %></a>
+                  <% else %>
+                    <%= PivotalTracker::Print.escape(r.send("#{h}") || '') %>
                   <% end %>
-                <% else %>
-                  <%= PivotalTracker::Print.escape(r.send("#{h}") || '') %>
-                <% end %>
-              </td>
+                </td>
+              <% end %>
             <% end %>
           </tr>
         <% end %>
