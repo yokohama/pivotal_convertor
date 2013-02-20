@@ -113,13 +113,54 @@ __END__
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+    <style>
+      table {
+        border-top:1px solid #666666;
+        border-left:1px solid #666666;
+        border-collapse:collapse;
+        border-spacing:0;
+        background-color:#ffffff;
+        empty-cells:show;
+      }
+      th{
+        border-right:1px solid #666666;
+        border-bottom:1px solid #666666;
+        color:#330000;
+        background-color:#87CEFA;
+        background-image:url(../img/table-back.gif);
+        background-position:left top;
+        padding:0.3em 1em;
+        text-align:center;
+      }
+      td{
+        border-right:1px solid #666666;
+        border-bottom:1px solid #666666;
+        padding:0.3em 1em;
+        font-size: 4px;
+        vertical-align: top;
+      }
+      div.task-completed{
+        background-color:7FFF00;
+        margin-bottom:4px;
+      }
+      div.task{
+        background-color:#FFF8DC;
+        margin-bottom:4px;
+      }
+      div.comment{
+        background-color:#F0F8FF;
+        margin-bottom:4px;
+      }
+    </style>
   </head>
   <body>
-    <table border="1">
+    <table>
       <thead>
-        <% header.each do |h| %>
-          <td><%= h %></td>
-        <% end %>
+        <tr>
+          <% header.each do |h| %>
+            <th><%= h %></th>
+          <% end %>
+        </tr>
       </thead>
       <tbody>
         <% records.each_with_index do |r, i| %>
@@ -127,16 +168,16 @@ __END__
             <% header.each do |h| %>
               <td>
                 <% if (h == "comment") %>
-                  <ul><%#= r.comment.each {|c| "<li>{PivotalTracker::Print.escape(c.title)}</li>" unless c.title.nil? } %></ul>
+                  <% r.comment.each do |c| %>
+                    <%= "<div class='comment'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+                  <% end %>
                 <% elsif (h == 'task') %>
                   <% r.task.each do |c| %>
-                    <ul>
-                      <% if c.status == 'completed' %>
-                          <%= "<li style='background-color:green;'>#{PivotalTracker::Print.escape(c.title)}</li>" unless c.title.nil? %>
-                      <% else %>
-                          <%= "<li>#{PivotalTracker::Print.escape(c.title)}</li>" unless c.title.nil? %>
-                      <% end %>
-                    </ul>
+                    <% if c.status == 'completed' %>
+                      <%= "<div class='task-completed'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+                    <% else %>
+                      <%= "<div class='task'>#{PivotalTracker::Print.escape(c.title)}</div>" unless c.title.nil? %>
+                    <% end %>
                   <% end %>
                 <% else %>
                   <%= PivotalTracker::Print.escape(r.send("#{h}") || '') %>
