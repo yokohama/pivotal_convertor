@@ -7,10 +7,11 @@ require "erb"
 module PivotalTracker
 
   class Ticket
-    attr_accessor :comment, :task, :task_progres_rate
+    attr_accessor :comment, :task, :task_progres_rate, :done
     def initialize
       @comment = []
       @task = []
+      @done = false
     end
   end
   
@@ -96,6 +97,9 @@ reader.each do |r|
     ticket.task_progres_rate = "#{((i.to_f / task_statuses.count) * 100).round}%"
   end
 
+  #タスクの完了
+  ticket.done = true if ticket.current_state == 'accepted'
+
   records << ticket
 end
 
@@ -131,6 +135,7 @@ __END__
         background-position:left top;
         padding:0.3em 1em;
         text-align:center;
+        font-size: 4px;
       }
       td{
         border-right:1px solid #666666;
@@ -140,7 +145,7 @@ __END__
         vertical-align: top;
       }
       div.task-completed{
-        background-color:7FFF00;
+        background-color:#AAAAAA;
         margin-bottom:4px;
       }
       div.task{
@@ -150,6 +155,9 @@ __END__
       div.comment{
         background-color:#F0F8FF;
         margin-bottom:4px;
+      }
+      tr.done{
+        background-color:#AAAAAA;
       }
     </style>
   </head>
@@ -164,7 +172,7 @@ __END__
       </thead>
       <tbody>
         <% records.each_with_index do |r, i| %>
-          <tr>
+          <%= r.done ? '<tr class="done">' : '<tr>' %>
             <% header.each do |h| %>
               <td>
                 <% if (h == "comment") %>
