@@ -8,7 +8,7 @@
 </code>
 <p>出力結果</p>
 <code>
-  name,derivered,accepted
+  name,derivered,accepted<br/>
   もちづき,13,5
   ぴぼたろ,10,8
   もばお,28,10
