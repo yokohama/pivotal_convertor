@@ -78,7 +78,7 @@ module Railstar
       end
       csv = "name,delivered,accepted\n"
       result.each {|k, v| csv << "#{k.empty? ? 'unknown' : k},#{v[:delivered]},#{v[:accepted]}\n" }
-      csv
+      csv << "total,#{result.values.inject(0){|sum,v| sum+v[:delivered]}},#{result.values.inject(0){|sum,v| sum+v[:accepted]}}"
     end
 
   end
