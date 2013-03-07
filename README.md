@@ -2,7 +2,8 @@
 
 <h4><使い方></h4>
 
-<ul>月指定で、バイネームでデリバー＆アクセプトポイントをCSV出力</ul>
+<ul>
+  <li>月指定で、バイネームでデリバー＆アクセプトポイントをCSV出力</li>
   <li>
     <code>
       ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
