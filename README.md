@@ -2,14 +2,14 @@
 
 <h4><使い方></h4>
 
-<ul>
-  <li>月指定で、バイネームでデリバー＆アクセプトポイントをCSV出力</li>
-  <li>
+<article>
+  <div class="title">月指定で、バイネームでデリバー＆アクセプトポイントをCSV出力</div>
+  <div class="example">
     <code>
       ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
     </code>
-  </li>
-  <li>
+  </div>
+  <div class="disc">
     <p>出力結果</p>
     <div>
       name,derivered,accepted<br />
@@ -19,5 +19,5 @@
       さとくん,8,13<br />
       total,59,33<br />
     </div>
-  </li>
-</ul>
+  </div>
+</article>
