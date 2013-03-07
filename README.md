@@ -12,12 +12,12 @@
   <li>
     <p>出力結果</p>
     <div>
-      <p>name,derivered,accepted</p>
-      <p>もちづき,13,5</p>
-      <p>ぴぼたろ,10,8</p>
-      <p>もばお,28,10</p>
-      <p>さとくん,8,13</p>
-      <p>total,59,33</p>
+      name,derivered,accepted<br />
+      もちづき,13,5<br />
+      ぴぼたろ,10,8<br />
+      もばお,28,10<br />
+      さとくん,8,13<br />
+      total,59,33<br />
     </div>
   </li>
 </ul>
