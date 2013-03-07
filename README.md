@@ -7,11 +7,11 @@
   ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
 </code>
 <p>出力結果</p>
-<code>
-  name,derivered,accepted<br/>
-  もちづき,13,5
-  ぴぼたろ,10,8
-  もばお,28,10
-  さとくん,8,13
-  total,59,33
-</code>
+<div>
+  <p>name,derivered,accepted</p>
+  <p>もちづき,13,5</p>
+  <p>ぴぼたろ,10,8</p>
+  <p>もばお,28,10</p>
+  <p>さとくん,8,13</p>
+  <p>total,59,33</p>
+</div>
