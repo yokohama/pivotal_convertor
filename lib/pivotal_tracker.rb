@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-#TODO:yokohama クラス分割
+#TODO:yokohama クラスをファイル分割
 module Railstar
 
   class PivotalTracker
@@ -61,6 +61,13 @@ module Railstar
       end
     end
 
+    # 月を指定して担当者ごとの消化ポイントをcsvで出力する。
+    #
+    # 1) accepted_atから、指定された月＋空白の月を抽出
+    # 2) その結果から、current_stateがacceptedのものを抽出＝指定された月にアクセプトしたもの。
+    # 3) さらに1)の結果から、current_stateがdeliveredのものを抽出＝既にデリバー(作業完了)になっているが、まだポチっとしてもらえてないもの。
+    # 4) 2)と3)の合計が、指定された月の成果という考え方。
+    #
     #TODO:yokohama Reportにあるべきメソッドか？
     def self.monthly_point_report_by_name(username, password, project_id, year, month)
       pivo = Report.new(project_id, username, password)
