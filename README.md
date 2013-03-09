@@ -10,7 +10,7 @@ dependancy
 スクリプト
 ------
 ### mprbn.rb ###
-+   pivotalの特定の月に対して誰が何ポイント消化したかを集計する。
++   pivotalの特定の月に対して誰が何ポイント消化(derivered/accepted)したかを集計する。プロジェクトによっては承認作業ががボトルネックになり、承認待ちも作業完了の実績として集計側で扱いたい場合もあるため、deriveredも出力しています
 
 #### 使い方 ####
     ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
