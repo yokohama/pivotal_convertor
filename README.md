@@ -6,10 +6,10 @@ PivotalTrackerのプロジェクト運営を楽にするためのツール集
 ------
 ### mprbn.rb ###
 
-#### 目的 ####
+- 目的
 pivotalの特定の月に対して誰が何ポイント消化したかを集計する。
 
-#### 使い方 ####
+- 使い方
     ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
 
     (出力結果）
@@ -21,7 +21,7 @@ pivotalの特定の月に対して誰が何ポイント消化したかを集計�
     さとくん,8,13
     total,71,37
     
-#### パラメータの解説 ####
+- パラメータの解説
 +   `Pivotal username` :
     pivotaltrackerのユーザアカウント
  
