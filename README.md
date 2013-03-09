@@ -14,13 +14,13 @@ mprbn.rb
     ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
 
     (出力結果）
-    name,derivered,accepted<br />
-    ITO,12,5<br />
-    もちづき,13,5<br />
-    ぴぼたろ,10,8<br />
-    もばお,28,10<br />
-    さとくん,8,13<br />
-    total,71,37<br />
+    name,derivered,accepted
+    ITO,12,5
+    もちづき,13,5
+    ぴぼたろ,10,8
+    もばお,28,10
+    さとくん,8,13
+    total,71,37
     
 パラメータの解説
 ----------------
