@@ -15,6 +15,9 @@ dependancy
 #### 使い方 ####
     ruby scripts/mprbn.rb [Pivotal username] [Pivotal password] [Pivotal project_id] [year] [month]
 
+    (実行例)
+    ruby scripts/mprbn.rb yokohama passpass 728821 2013 2
+
     (出力結果）
     name,derivered,accepted
     ITO,12,5
